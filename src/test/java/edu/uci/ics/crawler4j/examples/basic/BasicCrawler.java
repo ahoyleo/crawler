@@ -40,7 +40,8 @@ public class BasicCrawler extends WebCrawler {
 	@Override
 	public boolean shouldVisit(WebURL url) {
 		String href = url.getURL().toLowerCase();
-		return !FILTERS.matcher(href).matches() && href.startsWith("http://www.ics.uci.edu/");
+		return !FILTERS.matcher(href).matches() && (href.startsWith("http://www.mitbbs.com/bbsdoc1/stock") ||
+		    href.startsWith("http://www.mitbbs.com/article_t/stock"));
 	}
 
 	/**
@@ -72,6 +73,7 @@ public class BasicCrawler extends WebCrawler {
 			System.out.println("Text length: " + text.length());
 			System.out.println("Html length: " + html.length());
 			System.out.println("Number of outgoing links: " + links.size());
+			System.out.println(text);
 		}
 
 		System.out.println("=============");

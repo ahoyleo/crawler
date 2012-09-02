@@ -102,9 +102,7 @@ public class BasicCrawlController {
 		 * which are found in these pages
 		 */
 
-		controller.addSeed("http://www.ics.uci.edu/");
-		controller.addSeed("http://www.ics.uci.edu/~lopes/");
-		controller.addSeed("http://www.ics.uci.edu/~welling/");
+		controller.addSeed("http://www.mitbbs.com/bbsdoc1/Stock_1_0.html");
 
 		/*
 		 * Start the crawl. This is a blocking operation, meaning that your code
