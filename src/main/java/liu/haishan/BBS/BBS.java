@@ -1,5 +1,8 @@
 package liu.haishan.BBS;
 
-public class BBS {
+import java.util.List;
 
+public class BBS {
+//  Map <String, Board> _boards;
+  List <Board> _boards;
 }

@@ -1,5 +1,7 @@
 package liu.haishan.BBS;
 
-public class Board {
+import java.util.List;
 
+public class Board {
+  List <Thread> _threads;
 }

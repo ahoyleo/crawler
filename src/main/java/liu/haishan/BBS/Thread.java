@@ -1,5 +1,13 @@
 package liu.haishan.BBS;
 
-public class Thread {
+import java.util.ArrayList;
 
+
+public class Thread {
+  private Post op;
+
+  public Thread(Post op) {
+      this.op = op;
+//      this.op.setReplies(new ArrayList<Post>());
+  }
 }
