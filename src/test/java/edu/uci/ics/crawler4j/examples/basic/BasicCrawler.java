@@ -73,7 +73,12 @@ public class BasicCrawler extends WebCrawler {
 			System.out.println("Text length: " + text.length());
 			System.out.println("Html length: " + html.length());
 			System.out.println("Number of outgoing links: " + links.size());
-			System.out.println(text);
+			//this is a thread
+			if(url.substring(url.lastIndexOf('/')+1).matches("[0-9]+\\.html")) {
+				System.out.println("*******"+url);
+				System.out.println(text);
+				System.out.println(html);
+			}
 		}
 
 		System.out.println("=============");
