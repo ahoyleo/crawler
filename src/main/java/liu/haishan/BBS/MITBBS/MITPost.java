@@ -13,10 +13,9 @@ import liu.haishan.BBS.Post;
 
 public class MITPost extends Post
 {
-  protected final String POSTER = "发信人: ";
-  protected final String BOARD= "信区: ";
-  protected final String TITLE = "标  题: ";
-  protected final String SITE = "发信站: BBS 未名空间站 ";
+  protected final String ID_LINE_PATTERN = "^\\s+发信人: (.*)\\((.*)\\), 信区: (.*)$";
+  protected final String TITLE_LINE_PATTERN = "^标  题: (.*)$";
+  protected final String SITE_LINE_PATTERN = "^发信站: (.*) \\((.*), (.*)\\)$";
   protected final String PARENT_DELIM = "【";
 
   
@@ -44,6 +43,56 @@ public class MITPost extends Post
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  boolean posterIdLineParsed = false;
+  boolean titleLineParsed = false;
+  boolean siteLineParsed = false;
+  boolean contentStarted = false;
+  StringBuilder contentBuilder = new StringBuilder();
+  public void parseLine(String rawLine) {
+    if (posterIdLineParsed == false) {
+      String pattern = "^\\s+发信人: (.*)\\((.*)\\), 信区: (.*)$";
+      Pattern p = Pattern.compile(pattern);
+      Matcher m = p.matcher(rawLine);
+      if (m.find()) {
+        setPosterId(m.group(1));
+        setPosterNick(m.group(2));
+      }
+      posterIdLineParsed = true;
+    }
+    if (titleLineParsed == false) {
+      String pattern = "^标  题: (.*)$";
+      Pattern p = Pattern.compile(pattern);
+      Matcher m = p.matcher(rawLine);
+      if (m.find()) {
+        setTitle(m.group(1));
+      }
+      titleLineParsed = true;
+    }
+    if (siteLineParsed == false) {
+      String pattern = "^发信站: (.*) \\((.*), (.*)\\)$";
+      Pattern p = Pattern.compile(pattern);
+      Matcher m = p.matcher(rawLine);
+      if (m.find()) {
+        String dateRaw = m.group(2);
+        String timeZone = "";
+        if (m.group(3).equals("美东"))
+          timeZone = "EDT";
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy, z");
+        try
+        {
+          Date date = sdf.parse(dateRaw + ", " + timeZone);
+        }
+        catch (ParseException e)
+        {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }      }
+      siteLineParsed = true;
+    }
+    
+      
   }
   
   public static void main(String [] args) throws ParseException {
@@ -77,6 +126,15 @@ public class MITPost extends Post
       SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy, z");
       Date date = sdf.parse(dateRaw + ", " + timeZone);
       System.out.println(date.toString());
+    }
+    
+    String s4 = "[ 1 ]";
+    pattern = "^\\[ \\d+ \\]";
+    p = Pattern.compile(pattern);
+    m = p.matcher(s4);
+    if (m.find()) {
+      System.out.println(m.group());
+    
     }
   }
 }

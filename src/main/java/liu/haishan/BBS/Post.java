@@ -7,6 +7,7 @@ import java.util.List;
 public class Post
 {
   private String posterId;
+  private String posterNick;
   private Calendar time;
   private String title;
   private String content;
@@ -20,6 +21,14 @@ public class Post
   public void setPosterId(String posterId)
   {
     this.posterId = posterId;
+  }
+  public String getPosterNick()
+  {
+    return posterNick;
+  }
+  public void setPosterNick(String posterNick)
+  {
+    this.posterNick = posterNick;
   }
   public Calendar getTime()
   {
